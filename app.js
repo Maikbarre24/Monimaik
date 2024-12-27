@@ -8,6 +8,15 @@ let connectButton = document.getElementById('connectButton');
 let unlockButton = document.getElementById('unlockButton');
 let bikeList = document.getElementById('bikeList');
 
+connectButton.addEventListener('click', async () => {
+    try {
+        // Scansione per dispositivi Bluetooth (Monopattino)
+        statusElement.textContent = "Stato: In cerca del monopattino...";
+        device = await navigator.bluetooth.requestDevice({
+            filters: [{ services: ['battery_service'] }] // Aggiungi il servizio del monopattino qui
+        });
+
+
 // Dati dei monopattini (presumibilmente provenienti dal file TOT_BIKES.txt)
 const bikes = [
     { id: "Monopattino 1", mac: "00:11:22:33:44:55", code: "12345" },
