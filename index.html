@@ -1,128 +1,33 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vendita Disegni</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controllo Monopattino</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 20px;
+            cursor: pointer;
+        }
+        #status {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <h1>Galleria di Disegni</h1>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#gallery">Galleria</a>
-      <a href="#contact">Contatti</a>
-    </nav>
-  </header>
+    <h1>Controlla il Monopattino Elettrico</h1>
+    <button id="connectButton">Connetti al Monopattino</button>
+    <button id="unlockButton" disabled>Sblocca Monopattino</button>
+    <p id="status">Stato: Disconnesso</p>
 
-  <!-- Sezione Home -->
-  <section id="home">
-    <div class="banner">
-      <h2>Benvenuti in una galleria piena di fantastici disegni a tema anime</h2>
-      <p>Scopri disegni unici e originali realizzati da Mario Art.</p>
-      <a href="#gallery" class="button">Esplora la Galleria</a>
-    </div>
-  </section>
-
-  <!-- Sezione Galleria -->
-  <section id="gallery">
-    <h2>I Nostri Disegni</h2>
-    <div class="gallery-grid">
-      <!-- Disegno 1 -->
-      <div class="artwork">
-        <img src="images/disegno1.jpg" alt="Disegno di albedo di Overlord">
-        <h3>Disegno di albedo di Overlord</h3>
-        <p>€50.00</p>
-        <button>Aggiungi al Carrello</button>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="saccom777@gmail.com">
-          <input type="hidden" name="item_name" value="Disegno di albedo di Overlord">
-          <input type="hidden" name="amount" value="50.00">
-          <input type="hidden" name="currency_code" value="EUR">
-          <button type="submit">Paga con PayPal</button>
-        </form>
-      </div>
-
-      <!-- Disegno 2 -->
-      <div class="artwork">
-        <img src="images/disegno2.jpg" alt="Disegno di gohan ssj2">
-        <h3>Disegno di gohan ssj2</h3>
-        <p>€70.00</p>
-        <button>Aggiungi al Carrello</button>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="saccom777@gmail.com">
-          <input type="hidden" name="item_name" value="Disegno di gohan ssj2">
-          <input type="hidden" name="amount" value="70.00">
-          <input type="hidden" name="currency_code" value="EUR">
-          <button type="submit">Paga con PayPal</button>
-        </form>
-      </div>
-
-      <!-- Disegno 3 -->
-      <div class="artwork">
-        <img src="images/disegno3.jpg" alt="Disegno di Diablo di tensei shitara slime">
-        <h3>Disegno di Diablo di tensei shitara slime</h3>
-        <p>€30.00</p>
-        <button>Aggiungi al Carrello</button>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="saccom777@gmail.com">
-          <input type="hidden" name="item_name" value="Disegno di Diablo di tensei shitara slime">
-          <input type="hidden" name="amount" value="30.00">
-          <input type="hidden" name="currency_code" value="EUR">
-          <button type="submit">Paga con PayPal</button>
-        </form>
-      </div>
-
-      <!-- Disegno 4 -->
-      <div class="artwork">
-        <img src="images/disegno4.jpg" alt="Disegno di hayato suo di wind braker">
-        <h3>Disegno di hayato suo di wind braker</h3>
-        <p>€65.00</p>
-        <button>Aggiungi al Carrello</button>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="saccom777@gmail.com">
-          <input type="hidden" name="item_name" value="Disegno di hayato suo di wind braker">
-          <input type="hidden" name="amount" value="65.00">
-          <input type="hidden" name="currency_code" value="EUR">
-          <button type="submit">Paga con PayPal</button>
-        </form>
-      </div>
-
-      <!-- Disegno 5 -->
-      <div class="artwork">
-        <img src="images/disegno5.jpg" alt="Disegno di Ken Takakura di dandadan">
-        <h3>Disegno di Ken Takakura di dandadan</h3>
-        <p>€50.00</p>
-        <button>Aggiungi al Carrello</button>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="saccom777@gmail.com">
-          <input type="hidden" name="item_name" value="Disegno di Ken Takakura di dandadan">
-          <input type="hidden" name="amount" value="50.00">
-          <input type="hidden" name="currency_code" value="EUR">
-          <button type="submit">Paga con PayPal</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Sezione Contatti -->
-  <section id="contact">
-    <h2>Contattaci</h2>
-    <p>Email: ababeimario7@gmail.com</p>
-    <p>Telefono: +39 393 679 1234</p>
-    <p>Instagram: _mario.art.7</p>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2024 Galleria di Disegni. Tutti i diritti riservati.</p>
-  </footer>
+    <script src="app.js"></script>
 </body>
 </html>
