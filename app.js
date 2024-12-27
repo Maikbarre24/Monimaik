@@ -16,14 +16,6 @@ connectButton.addEventListener('click', async () => {
             filters: [{ services: ['battery_service'] }] // Aggiungi il servizio del monopattino qui
         });
 
-
-// Dati dei monopattini (presumibilmente provenienti dal file TOT_BIKES.txt)
-const bikes = [
-    { id: "Monopattino 1", mac: "00:11:22:33:44:55", code: "12345" },
-    { id: "Monopattino 2", mac: "66:77:88:99:AA:BB", code: "67890" },
-    // Aggiungi altri monopattini qui
-];
-
 // Popolare la lista dei monopattini
 bikes.forEach(bike => {
     let option = document.createElement("option");
