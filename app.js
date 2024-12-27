@@ -6,37 +6,14 @@ let characteristic;
 let statusElement = document.getElementById('status');
 let connectButton = document.getElementById('connectButton');
 let unlockButton = document.getElementById('unlockButton');
-let bikeList = document.getElementById('bikeList');
 
+// Pulsante di connessione
 connectButton.addEventListener('click', async () => {
     try {
         // Scansione per dispositivi Bluetooth (Monopattino)
         statusElement.textContent = "Stato: In cerca del monopattino...";
         device = await navigator.bluetooth.requestDevice({
             filters: [{ services: ['battery_service'] }] // Aggiungi il servizio del monopattino qui
-        });
-
-// Popolare la lista dei monopattini
-bikes.forEach(bike => {
-    let option = document.createElement("option");
-    option.value = bike.mac;
-    option.textContent = bike.id;
-    bikeList.appendChild(option);
-});
-
-// Pulsante di connessione
-connectButton.addEventListener('click', async () => {
-    const selectedBikeMac = bikeList.value;
-    if (!selectedBikeMac) {
-        statusElement.textContent = "Seleziona un monopattino.";
-        return;
-    }
-
-    try {
-        // Scansione per dispositivi Bluetooth (Monopattino)
-        statusElement.textContent = "Stato: In cerca del monopattino...";
-        device = await navigator.bluetooth.requestDevice({
-            filters: [{ devices: [{ name: selectedBikeMac }] }] // Filtro per il MAC address
         });
 
         // Connessione al dispositivo
@@ -56,17 +33,10 @@ connectButton.addEventListener('click', async () => {
 
 // Pulsante di sblocco
 unlockButton.addEventListener('click', async () => {
-    const selectedBikeMac = bikeList.value;
-    if (!selectedBikeMac) {
-        statusElement.textContent = "Seleziona un monopattino.";
-        return;
-    }
-
     try {
-        // Codice di sblocco (simulazione del comando)
-        const selectedBike = bikes.find(bike => bike.mac === selectedBikeMac);
+        // Invia il comando al monopattino (sostituisci con il comando effettivo)
         const encoder = new TextEncoder();
-        const command = encoder.encode(selectedBike.code);  // Usando il codice del monopattino
+        const command = encoder.encode("sblocca");
         await characteristic.writeValue(command);
         statusElement.textContent = "Stato: Monopattino Sbloccato!";
     } catch (error) {
