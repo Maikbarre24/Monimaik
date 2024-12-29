@@ -1,33 +1,88 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controllo Monopattino</title>
+    <title>Bluetooth Scanner</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 50px;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
         }
         button {
-            font-size: 18px;
             padding: 10px 20px;
-            margin: 20px;
+            font-size: 16px;
             cursor: pointer;
+            margin: 20px 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        #status {
-            font-size: 20px;
-            margin-top: 20px;
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <h1>Controlla il Monopattino Elettrico</h1>
-    <button id="connectButton">Connetti al Monopattino</button>
-    <button id="unlockButton" disabled>Sblocca Monopattino</button>
-    <p id="status">Stato: Disconnesso</p>
+    <h1>Bluetooth Scanner</h1>
+    <p>Scansiona dispositivi Bluetooth vicini e connettiti per leggere i dati.</p>
+    <button id="scanButton">Scansiona Dispositivi</button>
+    <ul id="deviceList"></ul>
 
-    <script src="app.js"></script>
+    <script>
+        // Funzione per avviare la scansione Bluetooth
+        document.getElementById('scanButton').addEventListener('click', async () => {
+            try {
+                // Richiede al browser di mostrare i dispositivi Bluetooth disponibili
+                const device = await navigator.bluetooth.requestDevice({
+                    acceptAllDevices: true, // Mostra tutti i dispositivi
+                    optionalServices: ['battery_service', 'device_information'] // Servizi opzionali
+                });
+
+                // Mostra il dispositivo trovato
+                const deviceList = document.getElementById('deviceList');
+                const listItem = document.createElement('li');
+                listItem.textContent = Nome: ${device.name || 'Sconosciuto'} - ID: ${device.id};
+                deviceList.appendChild(listItem);
+
+                // Tenta di connettersi al dispositivo
+                const server = await device.gatt.connect();
+                console.log(Connesso a: ${device.name});
+
+                // Legge il livello della batteria (se disponibile)
+                if (server.connected) {
+                    const service = await server.getPrimaryService('battery_service');
+                    const characteristic = await service.getCharacteristic('battery_level');
+                    const value = await characteristic.readValue();
+                    const batteryLevel = value.getUint8(0);
+
+                    // Mostra il livello della batteria
+                    alert(Livello batteria di ${device.name || 'Dispositivo'}: ${batteryLevel}%);
+                }
+            } catch (error) {
+                console.error('Errore:', error);
+                alert('Errore durante la scansione: ' + error.message);
+            }
+        });
+    </script>
 </body>
 </html>
