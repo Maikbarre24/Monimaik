@@ -9,10 +9,16 @@ h1 {
     margin-top: 20px;
 }
 
-#unlock-btn {
+button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 20px;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 #status {
