@@ -18,16 +18,18 @@ document.getElementById('connect-btn').addEventListener('click', async () => {
     try {
         const device = await navigator.bluetooth.requestDevice({
             acceptAllDevices: true,
-            optionalServices: ['battery_service']
+            optionalServices: ['battery_service'] // Servizio per il monopattino
         });
 
         connectedDevice = device;
         status.textContent = `Connesso a: ${device.name}`;
         document.getElementById('unlock-btn').disabled = false;
 
-        tryUnlockBluetooth(); // Prova a sbloccare il monopattino tramite Bluetooth
+        // Prova a sbloccare il monopattino tramite Bluetooth con tutti i codici
+        tryUnlockBluetooth();
     } catch (error) {
         status.textContent = `Errore nella connessione: ${error.message}`;
+        console.error("Errore nella connessione Bluetooth: ", error); // Log dell'errore per il debug
     }
 });
 
@@ -42,20 +44,23 @@ document.getElementById('unlock-btn').addEventListener('click', async () => {
     status.textContent = "Sblocco in corso...";
 
     try {
-        await tryUnlockBluetooth();
+        await tryUnlockBluetooth(); // Prova a sbloccare con tutti i codici
         status.textContent = "Monopattino sbloccato! Puoi usarlo.";
         document.getElementById('unlock-btn').disabled = true; // Disabilita il pulsante dopo lo sblocco
     } catch (error) {
         status.textContent = `Errore: ${error.message}`;
+        console.error("Errore nel processo di sblocco Bluetooth: ", error); // Log dell'errore per il debug
     }
 });
 
-// Funzione per tentare lo sblocco tramite Bluetooth con i codici
+// Funzione per tentare lo sblocco tramite Bluetooth con tutti i codici
 async function tryUnlockBluetooth() {
     const status = document.getElementById('status');
     for (let code of unlockCodes) {
         status.textContent = `Tentativo di sblocco con il codice: ${code}`;
-        const isUnlocked = await simulateUnlockCode(code);
+
+        // Qui invii il codice al dispositivo Bluetooth per il comando reale
+        const isUnlocked = await sendUnlockCodeToBluetooth(code);
         if (isUnlocked) {
             status.textContent = `Monopattino sbloccato con il codice: ${code}`;
             return;
@@ -64,18 +69,23 @@ async function tryUnlockBluetooth() {
     status.textContent = "Codici non validi. Riprova.";
 }
 
-// Simula l'invio del codice di sblocco
-function simulateUnlockCode(code) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            // Simula il successo di uno dei codici
-            if (unlockCodes.includes(code)) {
-                resolve(true);
-            } else {
-                resolve(false);
-            }
-        }, 1000); // Ritardo di 1 secondo per simulare il comando
-    });
+// Funzione per inviare il codice di sblocco al dispositivo Bluetooth
+async function sendUnlockCodeToBluetooth(code) {
+    try {
+        const server = await connectedDevice.gatt.connect();
+        const service = await server.getPrimaryService('battery_service');  // Puoi sostituire con il servizio reale
+        const characteristic = await service.getCharacteristic('battery_level'); // Cambia con una caratteristica che accetta codici
+
+        // Creare il comando di sblocco
+        const encoder = new TextEncoder();
+        const data = encoder.encode(code);  // Codifica il codice da inviare come dati binari
+        await characteristic.writeValue(data);  // Scrivi il valore sulla caratteristica
+
+        return true; // Successo nel tentativo di sblocco
+    } catch (error) {
+        console.error("Errore nell'invio del comando Bluetooth:", error);
+        return false; // Fallimento nel tentativo di sblocco
+    }
 }
 
 // Funzione per gestire la scansione del QR Code
@@ -102,13 +112,13 @@ document.getElementById('start-qr-btn').addEventListener('click', function() {
         { facingMode: "environment" }, // Usa la fotocamera posteriore
         { fps: 10, qrbox: 250 },
         function(decodedText, decodedResult) {
-            handleQRCode(decodedText); // Codice QR scansionato
+            handleQRCode(decodedText);  // Codice QR scansionato
             html5QrCode.stop(); // Ferma la scansione dopo la lettura
         },
         function(errorMessage) {
-            console.error(errorMessage);
+            console.error("Errore nella scansione del QR:", errorMessage);  // Log degli errori
         }
     ).catch(err => {
-        console.error("Errore durante la scansione del QR:", err);
+        console.error("Errore durante l'inizializzazione della fotocamera: ", err);
     });
 });
