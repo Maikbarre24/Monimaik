@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sblocca Monopattino</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sblocca il Monopattino</h1>
+
+        <!-- Sezione Bluetooth -->
+        <div class="bluetooth-section">
+            <button id="connect-btn">Connetti al Dispositivo Bluetooth</button>
+            <button id="unlock-btn" disabled>Sblocca Monopattino</button>
+            <p id="status">Stato: Nessuna connessione</p>
+        </div>
+
+        <!-- Sezione QR -->
+        <div class="qr-section">
+            <button id="start-qr-btn">Avvia Scansione QR</button>
+            <div id="qr-reader" style="display:none;"></div>
+        </div>
+
+        <p id="qr-status">Stato QR: Nessuna scansione</p>
+    </div>
+
+    <!-- Libreria HTML5 per QR Code (Assicurati che il percorso sia corretto) -->
+    <script src="libs/html5-qrcode.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
