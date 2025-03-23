@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulatore Macchina del Caffè</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Simulatore Macchina del Caffè</h1>
+        <div id="status">Stato: Non connesso</div>
+        <button id="connectButton">Connetti alla Macchina</button>
+        <div class="coffee-options" id="coffeeOptions">
+            <h2>Scegli il tuo caffè:</h2>
+            <button data-command="espresso">Espresso</button>
+            <button data-command="cappuccino">Cappuccino</button>
+            <button data-command="macchiato">Macchiato</button>
+            <button data-command="lungo">Lungo</button>
+        </div>
+        <div id="notification" class="hidden">☕ Caffè in arrivo!</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

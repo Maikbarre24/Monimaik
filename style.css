@@ -1,0 +1,81 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+#status {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    transition: background-color 0.3s;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+.coffee-options {
+    margin-top: 20px;
+}
+
+.coffee-options button {
+    background-color: #008CBA;
+}
+
+.coffee-options button:hover {
+    background-color: #007B9E;
+}
+
+#notification {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #FFD700;
+    color: #333;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    display: none;
+}
+
+#notification.visible {
+    display: block;
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
